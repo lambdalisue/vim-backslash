@@ -1,0 +1,43 @@
+*vim-backslash.txt*		Automatically insert a leading slash in VimL
+
+Version: 0.1.0
+Author:  Alisue <lambdalisue@hashnote.net>
+Support: Vim 7.4 and above
+License: MIT license
+
+=============================================================================
+USAGE						*vim-backslash-usage*
+
+*vim-backslash* is a filetype plugin which support to insert a leading slash
+to continue expression in Vim script.
+
+Assume "|" indicate the cursor in the following content:
+>
+	let foobar = [
+	      \ 'foo',|
+<
+The |o| in a normal mode or |i_<CR>| in an insert mode makes the content like:
+>
+	let foobar = [
+	      \ 'foo',
+	      \ |
+<
+And when the line contains only whitespaces and "\" like:
+>
+	let foobar = line('.') ==# 'Hello'
+	      \ ? 'Good bye'
+	      \ : 'Foobar'
+	      \ |
+<
+Hitting |o| or |i_<CR>| remove the leading spaces and "\" like:
+>
+	let foobar = line('.') ==# 'Hello'
+	      \ ? 'Good bye'
+	      \ : 'Foobar'
+	|
+<
+Note that this plugin care about g:vim_indent_cont which is used in
+$VIMRUNTIME/indent/vim.vim
+
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
