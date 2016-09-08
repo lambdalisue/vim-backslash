@@ -14,7 +14,6 @@ endfunction
 function! s:smart_o() abort
   let lnum = line('.')
   let line = getline(lnum)
-  let indent = get(g:, 'vim_indent_cont', shiftwidth() * 3)
   if line =~# '^\s*\\\s*$'
     call s:remove_slash(lnum)
   else
@@ -31,7 +30,6 @@ endfunction
 function! s:smart_CR_i() abort
   let lnum = line('.')
   let line = getline(lnum)
-  let indent = get(g:, 'vim_indent_cont', shiftwidth() * 3)
   if line =~# '^\s*\\\s*$'
     call s:remove_slash(lnum)
   else
