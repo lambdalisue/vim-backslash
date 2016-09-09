@@ -2,7 +2,7 @@ vim-backslash
 ===============================================================================
 ![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-yellow.svg?style=flat-square)
 ![Support Vim 7.4 or above](https://img.shields.io/badge/support-Vim%207.4%20or%20above-yellowgreen.svg?style=flat-square)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
 [![Doc](https://img.shields.io/badge/doc-%3Ah%20vim--backslash-orange.svg?style=flat-square)](doc/vim-backslash.txt)
 
 *vim-backslash* is a filetype plugin which support to insert a leading slash to continue expression in Vim script.
