@@ -24,7 +24,7 @@ function! s:smart_o() abort
     call append(lnum, leading)
     call setpos('.', [0, lnum+1, len(leading), !empty(leading)])
   endif
-  startinsert
+  startinsert!
 endfunction
 
 function! s:smart_CR_i() abort
