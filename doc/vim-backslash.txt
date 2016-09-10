@@ -1,6 +1,6 @@
 *vim-backslash.txt*		Automatically insert a leading slash in VimL
 
-Version: 0.1.0
+Version: 0.1.1
 Author:  Alisue <lambdalisue@hashnote.net>
 Support: Vim 7.4 and above
 License: MIT license
@@ -8,8 +8,8 @@ License: MIT license
 =============================================================================
 USAGE						*vim-backslash-usage*
 
-*vim-backslash* is a filetype plugin which support to insert a leading slash
-to continue expression in Vim script.
+*vim-backslash* is a filetype plugin which support to insert a leading
+backslash to continue expression in Vim script.
 
 Assume "|" indicate the cursor in the following content:
 >
