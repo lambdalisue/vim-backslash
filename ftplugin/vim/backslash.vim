@@ -8,7 +8,7 @@ function! s:remove_slash(lnum) abort
   let indent = get(g:, 'vim_indent_cont', shiftwidth() * 3)
   let leading = matchstr(line, printf('^\s*\ze\s\{%d}\\', indent))
   call setline('.', leading)
-  call setpos('.', [0, a:lnum, strlen(leading), !empty(leading)])
+  call setpos('.', [0, a:lnum, strlen(leading), 0])
 endfunction
 
 function! s:smart_o() abort
@@ -22,9 +22,9 @@ function! s:smart_o() abort
           \ ? matchstr(line, '^\s*\\\s*')
           \ : repeat(' ', eval(&indentexpr))
     call append(lnum, leading)
-    call setpos('.', [0, lnum+1, len(leading), !empty(leading)])
+    call setpos('.', [0, lnum+1, len(leading), 0])
   endif
-  startinsert
+  startinsert!
 endfunction
 
 function! s:smart_CR_i() abort
@@ -41,9 +41,9 @@ function! s:smart_CR_i() abort
     let suffix = line[col('.'):]
     call setline('.', prefix)
     call append(lnum, leading . suffix)
-    call setpos('.', [0, lnum+1, len(leading), !empty(leading)])
+    call setpos('.', [0, lnum+1, len(leading), 0])
   endif
-  startinsert
+  startinsert!
 endfunction
 
 nnoremap <silent><buffer> <Plug>(backslash-o)
