@@ -3,6 +3,9 @@ if exists('b:did_ftplugin_backslash')
 endif
 let b:did_ftplugin_backslash = 1
 
+
+let s:pattern = '^\s*\(if\|wh\%[ile]\|for\|try\|cat\%[ch]\|fina\%[lly]\|fu\%[nction]\|el\%[seif]\)\>'
+
 function! s:remove_slash(lnum) abort
   let line = getline(a:lnum)
   let indent = get(g:, 'vim_indent_cont', shiftwidth() * 3)
@@ -17,7 +20,7 @@ function! s:smart_o() abort
   if line =~# '^\s*\\\s*$'
     call s:remove_slash(lnum)
   else
-    let v:lnum = lnum + 1
+    let v:lnum = lnum + (line =~# s:pattern)
     sandbox let leading = line =~# '^\s*\\\s*'
           \ ? matchstr(line, '^\s*\\\s*')
           \ : repeat(' ', eval(&indentexpr))
@@ -33,7 +36,7 @@ function! s:smart_CR_i() abort
   if line =~# '^\s*\\\s*$'
     call s:remove_slash(lnum)
   else
-    let v:lnum = lnum + 1
+    let v:lnum = lnum + (line =~# s:pattern)
     sandbox let leading = line =~# '^\s*\\\s*'
           \ ? matchstr(line, '^\s*\\\s*')
           \ : repeat(' ', eval(&indentexpr))
@@ -54,7 +57,8 @@ inoremap <silent><buffer> <Plug>(backslash-CR)
 nmap <buffer> o    <Plug>(backslash-o)
 imap <buffer> <CR> <Plug>(backslash-CR)
 
-let b:undo_ftplugin = join([
+let b:undo_ftplugin = join(filter([
       \ 'nunmap <buffer> o',
       \ 'iunmap <buffer> <CR>',
-      \], '|')
+      \ get(b:, 'undo_ftplugin', ''),
+      \], '!empty(v:val)'), '|')
