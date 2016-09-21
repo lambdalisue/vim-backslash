@@ -1,6 +1,6 @@
 *vim-backslash.txt*		Automatically insert a leading slash in VimL
 
-Version: 0.1.1
+Version: 0.1.2
 Author:  Alisue <lambdalisue@hashnote.net>
 Support: Vim 7.4 and above
 License: MIT license
