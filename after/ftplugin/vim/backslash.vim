@@ -51,6 +51,6 @@ imap <buffer> <CR> <Plug>(backslash-CR-i)
 
 let b:undo_ftplugin =
       \ get(b:, 'undo_ftplugin', '')
-      \ . '| nunmap <buffer> o'
-      \ . '| iunmap <buffer> <CR>'
+      \ . '| silent! nunmap <buffer> o'
+      \ . '| silent! iunmap <buffer> <CR>'
 let b:undo_ftplugin = substitute(b:undo_ftplugin, '^| ', '', '')
