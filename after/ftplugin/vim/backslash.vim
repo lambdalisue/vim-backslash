@@ -3,15 +3,20 @@ if exists('b:backslash_loaded')
 endif
 let b:backslash_loaded = 1
 
-let s:leading_dict_list_open_rgx = '^.*\(\[\|{\)$'
-let s:leading_dict_list_rgx = '^.*\(\[\(.*\]\)\?\|{\(.*}\)\?\)$'
+let s:leading_dict_list_open_rgx = '^.*\(\[\|{\|(\)$'
 
 function! s:is_continuous() abort
   return getline('.') =~# '^\s*\\\s*' || getline('.') =~# s:leading_dict_list_open_rgx
 endfunction
 
 function! s:is_continuous_cr() abort
-  return getline('.') =~# '^\s*\\\s*' || getline('.') =~# s:leading_dict_list_rgx
+  let line = getline('.')
+  let prefix = line[:col('.')-2]
+  let suffix = line[col('.')-1:]
+  let should_add_backslash = suffix =~# '^.*\(\]\|}\|)\)$'
+        \ || (prefix =~# '^.*\(\[\|{\|(\)$' && suffix =~# '^\s*$')
+
+  return line =~# '^\s*\\\s*' || should_add_backslash
 endfunction
 
 function! s:smart_o() abort
@@ -49,7 +54,7 @@ function! s:smart_CR_i() abort
   endif
 
   let leading = matchstr(line, '^\s*\\\s*')
-  if empty(leading) && line =~# s:leading_dict_list_rgx
+  if empty(leading)
     let indent = get(g:, 'vim_indent_cont', shiftwidth() * 3)
     let leading = repeat(' ', indent) . '\ '
   endif
