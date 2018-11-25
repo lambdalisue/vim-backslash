@@ -13,7 +13,7 @@ function! s:is_continuous_cr() abort
   let line = getline('.')
   let prefix = line[:col('.')-2]
   let suffix = line[col('.')-1:]
-  let should_add_backslash = suffix =~# '^.*\(\]\|}\|)\)$'
+  let should_add_backslash = suffix =~# '^.*\(\]\|}\|)\).*$'
         \ || (prefix =~# '^.*\(\[\|{\|(\)$' && suffix =~# '^\s*$')
 
   return line =~# '^\s*\\\s*' || should_add_backslash
@@ -75,9 +75,20 @@ nnoremap <silent><buffer><expr> <Plug>(backslash-O) <SID>is_continuous()
       \ ? ":\<C-u>call \<SID>smart_O()\<CR>"
       \ : 'O'
 
-inoremap <silent><buffer><expr> <Plug>(backslash-CR-i) <SID>is_continuous_cr()
-      \ ? "\<Esc>:\<C-u>call \<SID>smart_CR_i()\<CR>"
-      \ : "\<CR>"
+let s:cr_mappings = maparg('<CR>', 'i')
+if empty(s:cr_mappings)
+  inoremap <silent><buffer><expr> <Plug>(backslash-CR-i) <SID>is_continuous_cr()
+        \ ? "\<Esc>:\<C-u>call \<SID>smart_CR_i()\<CR>"
+        \ : "\<CR>"
+else
+  function! s:fallback_cr() abort
+    return eval('"'.escape(s:cr_mappings, '<').'"')
+  endfunction
+
+  imap <silent><buffer><expr> <Plug>(backslash-CR-i) <SID>is_continuous_cr()
+        \ ? "\<Esc>:\<C-u>call \<SID>smart_CR_i()\<CR>"
+        \ : <SID>fallback_cr()
+endif
 
 nmap <buffer> o    <Plug>(backslash-o)
 nmap <buffer> O    <Plug>(backslash-O)
