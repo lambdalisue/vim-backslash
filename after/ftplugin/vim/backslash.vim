@@ -4,9 +4,11 @@ endif
 let b:backslash_loaded = 1
 
 let s:leading_dict_list_open_rgx = '^.*\(\[\|{\|(\)$'
+let s:comment_rgx = '^\s*".*$'
 
 function! s:is_continuous() abort
-  return getline('.') =~# '^\s*\\\s*' || getline('.') =~# s:leading_dict_list_open_rgx
+  let line = getline('.')
+  return line !~# s:comment_rgx && (line =~# '^\s*\\\s*' || line =~# s:leading_dict_list_open_rgx)
 endfunction
 
 function! s:is_continuous_cr() abort
@@ -14,9 +16,9 @@ function! s:is_continuous_cr() abort
   let prefix = line[:col('.')-2]
   let suffix = line[col('.')-1:]
   let should_add_backslash = suffix =~# '^.*\(\]\|}\|)\).*$'
-        \ || (prefix =~# '^.*\(\[\|{\|(\)$' && suffix =~# '^\s*$')
+        \ || (prefix =~# s:leading_dict_list_open_rgx && suffix =~# '^\s*$')
 
-  return line =~# '^\s*\\\s*' || should_add_backslash
+  return line !~# s:comment_rgx && (line =~# '^\s*\\\s*' || should_add_backslash)
 endfunction
 
 function! s:smart_o() abort
