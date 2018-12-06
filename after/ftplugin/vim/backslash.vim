@@ -77,20 +77,21 @@ nnoremap <silent><buffer><expr> <Plug>(backslash-O) <SID>is_continuous()
       \ ? ":\<C-u>call \<SID>smart_O()\<CR>"
       \ : 'O'
 
-let s:cr_mappings = maparg('<CR>', 'i')
+let s:cr_mappings = maparg('<CR>', 'i', 0, 1)
 if empty(s:cr_mappings)
-  inoremap <silent><buffer><expr> <Plug>(backslash-CR-i) <SID>is_continuous_cr()
-        \ ? "\<Esc>:\<C-u>call \<SID>smart_CR_i()\<CR>"
-        \ : "\<CR>"
+  inoremap <buffer> <Plug>(backslash-fallback-CR-i) <CR>
 else
-  function! s:fallback_cr() abort
-    return eval('"'.escape(s:cr_mappings, '<').'"')
-  endfunction
-
-  imap <silent><buffer><expr> <Plug>(backslash-CR-i) <SID>is_continuous_cr()
-        \ ? "\<Esc>:\<C-u>call \<SID>smart_CR_i()\<CR>"
-        \ : <SID>fallback_cr()
+  execute printf(
+      \ 'i%smap <buffer>%s%s <Plug>(backslash-fallback-CR-i) %s',
+      \ s:cr_mappings.noremap ? 'nore' : '',
+      \ s:cr_mappings.silent ? '<silent>' : '',
+      \ s:cr_mappings.expr ? '<expr>' : '',
+      \ s:cr_mappings.rhs,
+      \)
 endif
+imap <silent><buffer><expr> <Plug>(backslash-CR-i) <SID>is_continuous_cr()
+      \ ? "\<Esc>:\<C-u>call \<SID>smart_CR_i()\<CR>"
+      \ : "\<Plug>(backslash-fallback-CR-i)"
 
 nmap <buffer> o    <Plug>(backslash-o)
 nmap <buffer> O    <Plug>(backslash-O)
