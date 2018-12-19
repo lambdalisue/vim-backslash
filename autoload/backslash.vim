@@ -22,6 +22,7 @@ function! backslash#smart_o() abort
   let leading = matchstr(line, '^\s*\\\s*')
   if empty(leading) && line =~# s:leading_dict_list_open_rgx
     let indent = get(g:, 'vim_indent_cont', shiftwidth() * 3)
+    let indent += len(matchstr(line, '^\s*'))
     let leading = repeat(' ', indent) . '\ '
   endif
   call append(lnum, leading)
@@ -53,6 +54,7 @@ function! backslash#smart_CR_i() abort
   let leading = matchstr(line, '^\s*\\\s*')
   if empty(leading)
     let indent = get(g:, 'vim_indent_cont', shiftwidth() * 3)
+    let indent += len(matchstr(line, '^\s*'))
     let leading = repeat(' ', indent) . '\ '
   endif
   let prefix = line[:col('.')-1]
