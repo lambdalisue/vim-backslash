@@ -17,19 +17,25 @@ else
       \)
 endif
 
-nnoremap <silent><buffer><expr> <Plug>(backslash-o)
+nnoremap <silent><buffer> <Plug>(backslash-smart-o)
+      \ :<C-u>call backslash#smart_o()<CR>
+nmap <silent><buffer><expr> <Plug>(backslash-o)
       \ backslash#is_continuous()
-      \   ? ":\<C-u>call backslash#smart_o()\<CR>"
+      \   ? "\<Plug>(backslash-smart-o)"
       \   : 'o'
 
-nnoremap <silent><buffer><expr> <Plug>(backslash-O)
+nnoremap <silent><buffer> <Plug>(backslash-smart-O)
+      \ :<C-u>call backslash#smart_O()<CR>
+nmap <silent><buffer><expr> <Plug>(backslash-O)
       \ backslash#is_continuous()
-      \   ? ":\<C-u>call backslash#smart_O()\<CR>"
+      \   ? "\<Plug>(backslash-smart-O)"
       \   : 'O'
 
+inoremap <silent><buffer> <Plug>(backslash-smart-CR-i)
+      \ <Esc>:<C-u>call backslash#smart_CR_i()<CR>
 imap <silent><buffer><expr> <Plug>(backslash-CR-i)
       \ backslash#is_continuous_cr()
-      \   ? "\<Esc>:\<C-u>call backslash#smart_CR_i()\<CR>"
+      \   ? "\<Plug>(backslash-smart-CR-i)"
       \   : "\<Plug>(backslash-fallback-CR-i)"
 
 nmap <buffer> o    <Plug>(backslash-o)
