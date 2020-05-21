@@ -17,19 +17,21 @@ else
       \)
 endif
 
+nnoremap <silent><buffer> <Plug>(backslash-normal-o) o
 nnoremap <silent><buffer> <Plug>(backslash-smart-o)
       \ :<C-u>call backslash#smart_o()<CR>
 nmap <silent><buffer><expr> <Plug>(backslash-o)
       \ backslash#is_continuous()
       \   ? "\<Plug>(backslash-smart-o)"
-      \   : 'o'
+      \   : "\<Plug>(backslash-normal-o)"
 
+nnoremap <silent><buffer> <Plug>(backslash-normal-O) O
 nnoremap <silent><buffer> <Plug>(backslash-smart-O)
       \ :<C-u>call backslash#smart_O()<CR>
 nmap <silent><buffer><expr> <Plug>(backslash-O)
       \ backslash#is_continuous()
       \   ? "\<Plug>(backslash-smart-O)"
-      \   : 'O'
+      \   : "\<Plug>(backslash-normal-O)"
 
 inoremap <silent><buffer> <Plug>(backslash-smart-CR-i)
       \ <Esc>:<C-u>call backslash#smart_CR_i()<CR>
