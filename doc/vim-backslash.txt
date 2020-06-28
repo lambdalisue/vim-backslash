@@ -1,15 +1,26 @@
-*vim-backslash.txt*		Automatically insert a leading slash in VimL
+*vim-backslash.txt*	Automatically insert a leading slash in Vim script
 
-Version: 0.1.2
 Author:  Alisue <lambdalisue@hashnote.net>
-Support: Vim 7.4 and above
 License: MIT license
 
 =============================================================================
-USAGE						*vim-backslash-usage*
+CONTENTS					*vim-backslask-contents*
 
-*vim-backslash* is a filetype plugin which support to insert a leading
-backslash to continue expression in Vim script.
+INTRODUCTION				|vim-backslask-introduction|
+USAGE					|vim-backslask-usage|
+INTERFACE				|vim-backslask-interface|
+  VARIABLE				|vim-backslask-variable|
+
+
+=============================================================================
+INTRODUCTION					*vim-backslask-introduction*
+
+*vim-backslask* (backslask) is a filetype plugin to automatically insert a
+leading backslash to continue expression in in Vim script.
+
+
+=============================================================================
+USAGE						*vim-backslask-usage*
 
 Assume "|" indicate the cursor in the following content:
 >
@@ -39,11 +50,19 @@ Hitting |o| or |i_<CR>| remove the leading spaces and "\" like:
 Note that this plugin care about g:vim_indent_cont which is used in
 $VIMRUNTIME/indent/vim.vim
 
-If you'd like to disable default mappings, use
-*g:backslash_disable_default_mappings* like
->
-	let g:backslash_disable_default_mappings = 1
-<
+Use |g:backslash_disable_default_mappings| to disable default mappings.
+
+
+=============================================================================
+INTERFACE					*vim-backslask-interface*
+
+-----------------------------------------------------------------------------
+VARIABLE					*vim-backslask-variable*
+
+*g:backslask_disable_default_mappings*
+	Set 1 to disable default mappings.
+	Default: 0
+
 
 =============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

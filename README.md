@@ -1,11 +1,11 @@
-vim-backslash
-===============================================================================
+# vim-backslash
+
 ![Version 0.1.2](https://img.shields.io/badge/version-0.1.2-yellow.svg?style=flat-square)
 ![Support Vim 7.4 or above](https://img.shields.io/badge/support-Vim%207.4%20or%20above-yellowgreen.svg?style=flat-square)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
 [![Doc](https://img.shields.io/badge/doc-%3Ah%20vim--backslash-orange.svg?style=flat-square)](doc/vim-backslash.txt)
 
-*vim-backslash* is a filetype plugin which support to insert a leading backslash to continue expression in Vim script.
+_vim-backslash_ is a filetype plugin which support to insert a leading backslash to continue expression in Vim script.
 
 Assume "|" indicate the cursor in the following content:
 
@@ -41,4 +41,4 @@ let foobar = line('.') ==# 'Hello'
 ```
 
 Note that this plugin care about `g:vim_indent_cont` which is used in
-[$VIMRUNTIME/indent/vim.vim](https://github.com/vim/vim/blob/master/runtime/indent/vim.vim)
+[\$VIMRUNTIME/indent/vim.vim](https://github.com/vim/vim/blob/master/runtime/indent/vim.vim)
