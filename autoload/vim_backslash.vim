@@ -1,12 +1,12 @@
 let s:leading_dict_list_open_rgx = '^.*\(\[\|{\|(\)$'
 let s:comment_rgx = '^\s*".*$'
 
-function! backslash#is_continuous() abort
+function! vim_backslash#is_continuous() abort
   let line = getline('.')
   return line !~# s:comment_rgx && (line =~# '^\s*\\\s*' || line =~# s:leading_dict_list_open_rgx)
 endfunction
 
-function! backslash#is_continuous_cr() abort
+function! vim_backslash#is_continuous_cr() abort
   let line = getline('.')
   let prefix = line[:col('.')-2]
   let suffix = line[col('.')-1:]
@@ -16,7 +16,7 @@ function! backslash#is_continuous_cr() abort
   return line !~# s:comment_rgx && (line =~# '^\s*\\\s*' || should_add_backslash)
 endfunction
 
-function! backslash#smart_o() abort
+function! vim_backslash#smart_o() abort
   let lnum = line('.')
   let line = getline(lnum)
   let leading = matchstr(line, '^\s*\\\s*')
@@ -30,7 +30,7 @@ function! backslash#smart_o() abort
   startinsert!
 endfunction
 
-function! backslash#smart_O() abort
+function! vim_backslash#smart_O() abort
   let lnum = line('.')
   let line = getline(lnum)
   let leading = matchstr(line, '^\s*\\\s*')
@@ -39,7 +39,7 @@ function! backslash#smart_O() abort
   startinsert!
 endfunction
 
-function! backslash#smart_CR_i() abort
+function! vim_backslash#smart_CR_i() abort
   let lnum = line('.')
   let line = getline(lnum)
   if line =~# '^\s*\\\s*$'
