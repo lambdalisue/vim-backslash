@@ -40,13 +40,21 @@ imap <silent><buffer><expr> <Plug>(backslash-CR-i)
       \   ? "\<Plug>(backslash-smart-CR-i)"
       \   : "\<Plug>(backslash-fallback-CR-i)"
 
-nmap <buffer> o    <Plug>(backslash-o)
-nmap <buffer> O    <Plug>(backslash-O)
-imap <buffer> <CR> <Plug>(backslash-CR-i)
+if !get(g:, 'backslash_disable_default_mappings', 0)
+  nmap <buffer> o    <Plug>(backslash-o)
+  nmap <buffer> O    <Plug>(backslash-O)
+  imap <buffer> <CR> <Plug>(backslash-CR-i)
 
-let b:undo_ftplugin =
-      \ get(b:, 'undo_ftplugin', '')
-      \ . '| silent! nunmap <buffer> o'
-      \ . '| silent! nunmap <buffer> O'
-      \ . '| silent! iunmap <buffer> <CR>'
-let b:undo_ftplugin = substitute(b:undo_ftplugin, '^| ', '', '')
+  let undo_ftplugin = join([
+        \ 'silent! nunmap <buffer> o',
+        \ 'silent! nunmap <buffer> O',
+        \ 'silent! nunmap <buffer> <CR>',
+        \], ' | ')
+
+  let b:undo_ftplugin =
+        \ get(b:, 'undo_ftplugin', '')
+        \ . '| silent! nunmap <buffer> o'
+        \ . '| silent! nunmap <buffer> O'
+        \ . '| silent! iunmap <buffer> <CR>'
+  let b:undo_ftplugin = substitute(b:undo_ftplugin, '^| ', '', '')
+endif

@@ -39,5 +39,11 @@ Hitting |o| or |i_<CR>| remove the leading spaces and "\" like:
 Note that this plugin care about g:vim_indent_cont which is used in
 $VIMRUNTIME/indent/vim.vim
 
+If you'd like to disable default mappings, use
+*g:backslash_disable_default_mappings* like
+>
+	let g:backslash_disable_default_mappings = 1
+<
+
 =============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
