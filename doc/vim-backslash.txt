@@ -63,6 +63,24 @@ VARIABLE					*vim-backslask-variable*
 	Set 1 to disable default mappings.
 	Default: 0
 
+*g:vim_backslash#preventers*
+	A |List| of |Function| which is called prior to determine if backslash
+	is required or not. Return 1 to prevent automatic backslash insertion.
+
+	For example, use it to prevent backslash insertion in non vim context
+	with https://github.com/Shougo/context_filetype.vim like
+>
+	let g:vim_backslash#preventers = [
+	      \ { -> context_filetype#get_filetype() !=# 'vim' },
+	      \]
+<
+	Then no automatic backslash insertion will invoked if the cursor is on
+	non vim context like below:
+>
+	python <<EOF
+	  foo = {|}
+	EOF
+<
 
 =============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

@@ -2,11 +2,17 @@ let s:leading_dict_list_open_rgx = '^.*\(\[\|{\|(\)$'
 let s:comment_rgx = '^\s*".*$'
 
 function! vim_backslash#is_continuous() abort
+  if s:is_prevented()
+    return 0
+  endif
   let line = getline('.')
   return line !~# s:comment_rgx && (line =~# '^\s*\\\s*' || line =~# s:leading_dict_list_open_rgx)
 endfunction
 
 function! vim_backslash#is_continuous_cr() abort
+  if s:is_prevented()
+    return 0
+  endif
   let line = getline('.')
   let prefix = line[:col('.')-2]
   let suffix = line[col('.')-1:]
@@ -65,3 +71,14 @@ function! vim_backslash#smart_CR_i() abort
   execute len(suffix) ? 'startinsert' : 'startinsert!'
   return
 endfunction
+
+function! s:is_prevented() abort
+  for Preventer in g:vim_backslash#preventers
+    if Preventer()
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
+let g:vim_backslash#preventers = get(g:, 'vim_backslash#preventers', [])
