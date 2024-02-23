@@ -5,7 +5,7 @@ let b:vim_backslash_loaded = 1
 
 function! s:define_fallback(mode, expr) abort
   let m = maparg(a:expr, a:mode, 0, 1)
-  if empty(m)
+  if empty(m) || !has_key(m, 'rhs')
     execute printf(
           \ '%snoremap <buffer> <Plug>(vim-backslash-fallback-%s-%s) %s',
           \ a:mode,
